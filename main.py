@@ -7,7 +7,10 @@ Adapted from the tutorial found here:
 https://retropie.org.uk/
 http://lifehacker.com/how-to-turn-your-raspberry-pi-into-a-retro-game-console-498561192
 
-TODO:: break into components as things develop
+TODO:
+    pig sprite
+    pig sound on jump
+    easy way to make levels
 '''
 import pygame as pg
 
