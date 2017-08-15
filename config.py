@@ -1,3 +1,7 @@
+'''
+http://themushroomkingdom.net/media/smb/wav
+http://themushroomkingdom.net/media/smw/wav
+'''
 # Colors
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -50,4 +54,5 @@ SCREEN_HEIGHT = 600
 
 
 # MISC
-GRAVITY_MOD = 0.45
+GRAVITY_MOD = 0.55
+JUMP_SPEED = 11

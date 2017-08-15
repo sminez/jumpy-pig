@@ -1,5 +1,6 @@
 '''
 Main file for the game.
+
 Adapted from the tutorial found here:
     http://programarcadegames.com/index.php?chapter=example_code_platformer
     http://programarcadegames.com/index.php?chapter=controllers_and_graphics&lang=en
@@ -8,15 +9,14 @@ https://retropie.org.uk/
 http://lifehacker.com/how-to-turn-your-raspberry-pi-into-a-retro-game-console-498561192
 
 TODO:
-    pig sprite
-    pig sound on jump
     easy way to make levels
+    add Claude to the level as a finish post
 '''
 import pygame as pg
 
 from player import Player
-from levels import Level_01
 from config import SCREEN_WIDTH, SCREEN_HEIGHT
+from levels import Level_01, Level_02, Level_XX
 
 
 def main():
@@ -25,23 +25,20 @@ def main():
 
     size = [SCREEN_WIDTH, SCREEN_HEIGHT]
     screen = pg.display.set_mode(size)
-    pg.display.set_caption("For Lila")
+    pg.display.set_caption("Jumpy Pig! (A Game For Lila)")
 
     player = Player()
 
     # Set up the levels
-    level_list = [Level_01(player)]
-    current_level_no = 0
+    level_list = [Level_01, Level_02, Level_XX]
+    level_list = [l(player) for l in level_list]
+    current_level_no = 2
     current_level = level_list[current_level_no]
 
     # Collect all of the sprites
     active_sprite_list = pg.sprite.Group()
-    player.level = current_level
-
-    # Initialise the player position
-    player.rect.x = 340
-    player.rect.y = SCREEN_HEIGHT - player.rect.height
     active_sprite_list.add(player)
+    player.level = current_level
 
     running = True
 
@@ -56,7 +53,7 @@ def main():
                     player.move_left()
                 if event.key == pg.K_RIGHT:
                     player.move_right()
-                if event.key == pg.K_UP:
+                if event.key == pg.K_SPACE:
                     player.jump()
 
             if event.type == pg.KEYUP:

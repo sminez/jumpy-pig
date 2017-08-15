@@ -1,13 +1,13 @@
 import pygame as pg
 
-from config import FADED_BLUE, NEUTRAL_BLUE
+from config import NEUTRAL_PURPLE, LIGHT0
 
 
 class Platform(pg.sprite.Sprite):
     def __init__(self, width, height):
         super().__init__()
         self.image = pg.Surface([width, height])
-        self.image.fill(FADED_BLUE)
+        self.image.fill(NEUTRAL_PURPLE)
         self.rect = self.image.get_rect()
 
 
@@ -24,7 +24,7 @@ class Level:
 
     def draw(self, screen):
         # Draw the background
-        screen.fill(NEUTRAL_BLUE)
+        screen.fill(LIGHT0)
 
         # Draw all the sprite lists that we have
         self.platform_list.draw(screen)
