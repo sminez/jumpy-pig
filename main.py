@@ -23,8 +23,9 @@ def main():
     pg.init()
     clock = pg.time.Clock()
 
-    size = [SCREEN_WIDTH, SCREEN_HEIGHT]
+    size = (SCREEN_WIDTH, SCREEN_HEIGHT)
     screen = pg.display.set_mode(size)
+    # screen = pg.display.set_mode(size, pg.FULLSCREEN)
     pg.display.set_caption("Jumpy Pig! (A Game For Lila)")
 
     player = Player()
@@ -38,6 +39,8 @@ def main():
     # Collect all of the sprites
     active_sprite_list = pg.sprite.Group()
     active_sprite_list.add(player)
+    # NOTE: uncomment to display the player hitbox
+    # active_sprite_list.add(player, player.hitbox)
     player.level = current_level
 
     running = True
@@ -55,6 +58,8 @@ def main():
                     player.move_right()
                 if event.key == pg.K_SPACE:
                     player.jump()
+                if event.key == pg.K_q:
+                    running = False
 
             if event.type == pg.KEYUP:
                 if event.key == pg.K_LEFT and player.change_x < 0:
@@ -66,11 +71,10 @@ def main():
         active_sprite_list.update()
         current_level.update()
 
-        # If the player gets near the right side, shift the world left (-x)
+        # Keep the player in bounds
         if player.rect.right > SCREEN_WIDTH:
             player.rect.right = SCREEN_WIDTH
 
-        # If the player gets near the left side, shift the world right (+x)
         if player.rect.left < 0:
             player.rect.left = 0
 
