@@ -1,6 +1,6 @@
 import pygame as pg
 
-from config import NEUTRAL_PURPLE, LIGHT0
+from config import NEUTRAL_PURPLE, SKY
 
 
 class Donkey(pg.sprite.Sprite):
@@ -47,7 +47,7 @@ class Level:
 
     def draw(self, screen):
         # Draw the background
-        screen.fill(LIGHT0)
+        screen.fill(SKY)
 
         # Draw all the sprite lists that we have
         self.platform_list.draw(screen)

@@ -28,6 +28,10 @@ def main():
     # screen = pg.display.set_mode(size, pg.FULLSCREEN)
     pg.display.set_caption("Jumpy Pig! (A Game For Lila)")
 
+    pg.joystick.init()
+    pad = pg.joystick.Joystick(0)
+    pad.init()
+
     player = Player()
 
     # Set up the levels
@@ -51,6 +55,7 @@ def main():
             if event.type == pg.QUIT:
                 running = False
 
+            # Keyboard input
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_LEFT:
                     player.move_left()
@@ -66,6 +71,29 @@ def main():
                     player.stop()
                 if event.key == pg.K_RIGHT and player.change_x > 0:
                     player.stop()
+
+            # Gamepad input using my SNES pads
+            HORIZONTAL = pad.get_axis(0)
+            # VERTICAL = pad.get_axis(1)
+            # X = pad.get_button(0)
+            # A = pad.get_button(1)
+            B = pad.get_button(2)
+            # Y = pad.get_button(3)
+            # L_SHOULDER = pad.get_button(4)
+            # R_SHOULDER = pad.get_button(6)
+            SELECT = pad.get_button(8)
+            # START = pad.get_button(9)
+
+            if HORIZONTAL < 0:
+                player.move_left()
+            if HORIZONTAL > 0:  # For some reason I don't get an int here...
+                player.move_right()
+            if HORIZONTAL == 0:
+                player.stop()
+            if B == 1:
+                player.jump()
+            if SELECT == 1:
+                running = False
 
         # Update the frame
         active_sprite_list.update()

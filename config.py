@@ -6,6 +6,8 @@ http://themushroomkingdom.net/media/smw/wav
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 
+SKY = (133, 186, 251)
+
 DARK0 = (40, 40, 40)
 DARK1 = (60, 56, 54)
 DARK2 = (80, 73, 69)
@@ -49,11 +51,13 @@ FADED_BROWN = (101, 67, 33)
 
 
 # Screen dimensions
-SCREEN_WIDTH = 800
+SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 600
 
 
 # MISC
 GRAVITY_MOD = 0.50
 JUMP_SPEED = 11
-HITBOX_RATIO = 0.7
+WALK_ANIM_SPEED = 50
+WALK_SPEED = 6.5
+HITBOX_RATIO = 0.65
