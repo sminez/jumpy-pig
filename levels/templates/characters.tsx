@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset name="characters" tilewidth="60" tileheight="80" tilecount="5" columns="0">
+<tileset name="characters" tilewidth="40" tileheight="36" tilecount="5" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
- <tile id="0">
-  <image width="60" height="41" source="../../assets/sprites/alpha-pig-left-light.png"/>
- </tile>
- <tile id="1">
-  <image width="60" height="41" source="../../assets/sprites/alpha-pig-left-up-light.png"/>
- </tile>
- <tile id="2">
-  <image width="60" height="41" source="../../assets/sprites/alpha-pig-right-up-light.png"/>
- </tile>
- <tile id="3">
-  <image width="60" height="41" source="../../assets/sprites/alpha-pig-right-light.png"/>
- </tile>
  <tile id="4">
-  <image width="59" height="80" source="../../assets/sprites/donkey.png"/>
+  <image width="40" height="36" source="../../assets/sprites/donkey.png"/>
+ </tile>
+ <tile id="5">
+  <image width="26" height="20" source="../../assets/sprites/jumpy/right.png"/>
+ </tile>
+ <tile id="6">
+  <image width="26" height="20" source="../../assets/sprites/jumpy/left.png"/>
+ </tile>
+ <tile id="7">
+  <image width="26" height="20" source="../../assets/sprites/jumpy/left2.png"/>
+ </tile>
+ <tile id="8">
+  <image width="26" height="20" source="../../assets/sprites/jumpy/right2.png"/>
  </tile>
 </tileset>

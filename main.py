@@ -14,13 +14,18 @@ TODO:
 '''
 import pygame as pg
 
+from world import Level
 from player import Player
 from config import SCREEN_WIDTH, SCREEN_HEIGHT
-from levels import Level_01, Level_02, Level_XX
+# from levels import Level_01, Level_02, Level_XX
 
 
 def main():
+    # NOTE: Need to init the audio mixer _before_ the main pygame.init()
+    pg.mixer.pre_init(44100, -16, 2, 2048)
+    pg.mixer.init()
     pg.init()
+
     clock = pg.time.Clock()
 
     size = (SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -29,15 +34,23 @@ def main():
     pg.display.set_caption("Jumpy Pig! (A Game For Lila)")
 
     pg.joystick.init()
-    pad = pg.joystick.Joystick(0)
-    pad.init()
+    if pg.joystick.get_count() > 0:
+        pad = pg.joystick.Joystick(0)
+        pad.init()
+        USE_GAMEPAD = True
+    else:
+        USE_GAMEPAD = False
 
     player = Player()
 
     # Set up the levels
-    level_list = [Level_01, Level_02, Level_XX]
-    level_list = [l(player) for l in level_list]
-    current_level_no = 2
+    level_list = [
+        'levels/templates/lvl_1.tmx',
+        'levels/templates/lvl_2.tmx',
+        'levels/templates/lvl_3.tmx'
+    ]
+    level_list = [Level(player, l) for l in level_list]
+    current_level_no = 0
     current_level = level_list[current_level_no]
 
     # Collect all of the sprites
@@ -72,28 +85,29 @@ def main():
                 if event.key == pg.K_RIGHT and player.change_x > 0:
                     player.stop()
 
-            # Gamepad input using my SNES pads
-            HORIZONTAL = pad.get_axis(0)
-            # VERTICAL = pad.get_axis(1)
-            # X = pad.get_button(0)
-            # A = pad.get_button(1)
-            B = pad.get_button(2)
-            # Y = pad.get_button(3)
-            # L_SHOULDER = pad.get_button(4)
-            # R_SHOULDER = pad.get_button(6)
-            SELECT = pad.get_button(8)
-            # START = pad.get_button(9)
+            if USE_GAMEPAD:
+                # Gamepad input using my SNES pads
+                HORIZONTAL = pad.get_axis(0)
+                # VERTICAL = pad.get_axis(1)
+                # X = pad.get_button(0)
+                # A = pad.get_button(1)
+                B = pad.get_button(2)
+                # Y = pad.get_button(3)
+                # L_SHOULDER = pad.get_button(4)
+                # R_SHOULDER = pad.get_button(6)
+                SELECT = pad.get_button(8)
+                # START = pad.get_button(9)
 
-            if HORIZONTAL < 0:
-                player.move_left()
-            if HORIZONTAL > 0:  # For some reason I don't get an int here...
-                player.move_right()
-            if HORIZONTAL == 0:
-                player.stop()
-            if B == 1:
-                player.jump()
-            if SELECT == 1:
-                running = False
+                if HORIZONTAL < 0:
+                    player.move_left()
+                if HORIZONTAL > 0:
+                    player.move_right()
+                if HORIZONTAL == 0:
+                    player.stop()
+                if B == 1:
+                    player.jump()
+                if SELECT == 1:
+                    running = False
 
         # Update the frame
         active_sprite_list.update()

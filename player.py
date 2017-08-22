@@ -9,21 +9,25 @@ class Player(pg.sprite.Sprite):
         super().__init__()
         # Pig sprites: left and right
         self.image_right = [
+            # pg.image.load(
+            #     'assets/sprites/alpha-pig-right.png').convert_alpha(),
+            # pg.image.load(
+            #     'assets/sprites/alpha-pig-right-up.png').convert_alpha()
             pg.image.load(
-                'assets/sprites/alpha-pig-right.png').convert_alpha(),
+                'assets/sprites/jumpy/right.png').convert_alpha(),
             pg.image.load(
-                'assets/sprites/alpha-pig-right-up.png').convert_alpha()
+                'assets/sprites/jumpy/right2.png').convert_alpha(),
         ]
         self.image_left = [
+            # pg.image.load(
+            #     'assets/sprites/alpha-pig-left.png').convert_alpha(),
+            # pg.image.load(
+            #     'assets/sprites/alpha-pig-left-up.png').convert_alpha()
             pg.image.load(
-                'assets/sprites/alpha-pig-left.png').convert_alpha(),
+                'assets/sprites/jumpy/left.png').convert_alpha(),
             pg.image.load(
-                'assets/sprites/alpha-pig-left-up.png').convert_alpha()
+                'assets/sprites/jumpy/left2.png').convert_alpha(),
         ]
-        self.image_up_right = pg.image.load(
-            'assets/sprites/alpha-pig-right-up.png').convert_alpha()
-        self.image_up_right = pg.image.load(
-            'assets/sprites/alpha-pig-left-up.png').convert_alpha()
 
         self.image = self.image_right[0]
         self.rect = self.image.get_rect()
