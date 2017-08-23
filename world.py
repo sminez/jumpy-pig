@@ -31,8 +31,10 @@ class Level:
         # Fetch each of the layers
         pig_layer = lvl.get_layer_by_name('pig')
         donkey_layer = lvl.get_layer_by_name('donkey')
+        mob_layer = lvl.get_layer_by_name('mobs')
         plat_layer = lvl.get_layer_by_name('platforms')
         obj_layer = lvl.get_layer_by_name('objects')
+        col_layer = lvl.get_layer_by_name('collectables')
 
         # Get start and finish positions
         p_pos = next(pig_layer.tiles())
@@ -43,11 +45,13 @@ class Level:
         player.rect.y = p_pos[1] * self.h
 
         self.donkey = Donkey(
-                (d_pos[0] - 0.7) * self.w,
-                (d_pos[1] - 0.7) * self.h)
+            # The offset for the donkey sprite is wrong for some reason...!
+            (d_pos[0] - 0.7) * self.w,
+            (d_pos[1] - 0.7) * self.h)
 
         self.platform_list = pg.sprite.Group()
         self.donkey_list = pg.sprite.Group(self.donkey)
+        # self.mob_list = pg.sprite.Group()
 
         # Same background image for each level at the moment
         self.background = pg.image.load('levels/bg_512x384.png')
@@ -60,8 +64,10 @@ class Level:
             # block.player = self.player
             self.platform_list.add(block)
 
-        # Collect the objects and decorations
+        # Collect the mobs, objects and collectables
+        self.mobs = [o for o in mob_layer.tiles()]
         self.objects = [o for o in obj_layer.tiles()]
+        self.collectables = [o for o in col_layer.tiles()]
 
     def update(self):
         self.platform_list.update()
@@ -75,5 +81,10 @@ class Level:
         self.platform_list.draw(screen)
         self.donkey_list.draw(screen)
 
+        # Blit objects (decoration only)
         for t in self.objects:
+            screen.blit(t[2], (t[0]*self.w, t[1]*self.h))
+
+        # Blit collectables
+        for t in self.collectables:
             screen.blit(t[2], (t[0]*self.w, t[1]*self.h))

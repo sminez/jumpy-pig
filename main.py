@@ -29,8 +29,8 @@ def main():
     clock = pg.time.Clock()
 
     size = (SCREEN_WIDTH, SCREEN_HEIGHT)
-    screen = pg.display.set_mode(size)
-    # screen = pg.display.set_mode(size, pg.FULLSCREEN)
+    # screen = pg.display.set_mode(size)
+    screen = pg.display.set_mode(size, pg.FULLSCREEN)
     pg.display.set_caption("Jumpy Pig! (A Game For Lila)")
 
     pg.joystick.init()
@@ -47,11 +47,14 @@ def main():
     level_list = [
         'levels/templates/lvl_1.tmx',
         'levels/templates/lvl_2.tmx',
-        'levels/templates/lvl_3.tmx'
+        'levels/templates/lvl_3.tmx',
+        'levels/templates/lvl_4.tmx',
+        'levels/templates/lvl_5.tmx',
+        'levels/templates/lvl_6.tmx',
+        'levels/templates/lvl_10.tmx'
     ]
-    level_list = [Level(player, l) for l in level_list]
     current_level_no = 0
-    current_level = level_list[current_level_no]
+    current_level = Level(player, level_list[current_level_no])
 
     # Collect all of the sprites
     active_sprite_list = pg.sprite.Group()
@@ -61,6 +64,12 @@ def main():
     player.level = current_level
 
     running = True
+    reset = False   # Used to reset to the first level
+
+    # Start the background music
+    pg.mixer.music.load('assets/sounds/bg_music1.mp3')
+    pg.mixer.music.play(loops=-1)
+    pg.mixer.music.set_volume(0.4)
 
     # Start the event loop
     while running:
@@ -92,11 +101,11 @@ def main():
                 # X = pad.get_button(0)
                 # A = pad.get_button(1)
                 B = pad.get_button(2)
-                # Y = pad.get_button(3)
+                Y = pad.get_button(3)
                 # L_SHOULDER = pad.get_button(4)
                 # R_SHOULDER = pad.get_button(6)
                 SELECT = pad.get_button(8)
-                # START = pad.get_button(9)
+                START = pad.get_button(9)
 
                 if HORIZONTAL < 0:
                     player.move_left()
@@ -104,10 +113,12 @@ def main():
                     player.move_right()
                 if HORIZONTAL == 0:
                     player.stop()
-                if B == 1:
+                if B == 1 or Y == 1:
                     player.jump()
                 if SELECT == 1:
                     running = False
+                if START == 1:
+                    reset = True
 
         # Update the frame
         active_sprite_list.update()
@@ -123,6 +134,21 @@ def main():
         # NOTE: All drawing code needs to go here!
         current_level.draw(screen)
         active_sprite_list.draw(screen)
+
+        if pg.sprite.collide_rect(player, current_level.donkey):
+            current_level_no += 1
+            if current_level_no == len(level_list):
+                current_level_no = 0
+            current_level = Level(player, level_list[current_level_no])
+            player.level = current_level
+            player.image = player.image_right[0]
+
+        if reset:
+            reset = False
+            current_level_no = 0
+            current_level = Level(player, level_list[current_level_no])
+            player.level = current_level
+            player.image = player.image_right[0]
 
         # These should always be the last two lines in the main loop
         clock.tick(60)
