@@ -33,8 +33,8 @@ def main():
     font = pg.font.Font(None, 25)
 
     size = (SCREEN_WIDTH, SCREEN_HEIGHT)
-    # screen = pg.display.set_mode(size)
-    screen = pg.display.set_mode(size, pg.FULLSCREEN)
+    screen = pg.display.set_mode(size)
+    # screen = pg.display.set_mode(size, pg.FULLSCREEN)
     pg.display.set_caption("Jumpy Pig! (A Game For Lila)")
 
     pg.joystick.init()
