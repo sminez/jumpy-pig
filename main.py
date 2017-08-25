@@ -88,8 +88,8 @@ def main():
                 # A = pad.get_button(1)
                 B = pad.get_button(2)
                 # Y = pad.get_button(3)
-                # L_SHOULDER = pad.get_button(4)
-                # R_SHOULDER = pad.get_button(6)
+                L_SHOULDER = pad.get_button(4)
+                R_SHOULDER = pad.get_button(6)
                 SELECT = pad.get_button(8)
                 START = pad.get_button(9)
 
@@ -103,7 +103,7 @@ def main():
                     player.jump()
                 if B == 0:
                     player.end_jump()
-                if SELECT == 1:
+                if SELECT == 1 and L_SHOULDER == 1 and R_SHOULDER == 1:
                     running = False
                 if START == 1:
                     reset = True
