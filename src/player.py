@@ -1,7 +1,12 @@
+import os
 import pygame as pg
-from config import SCREEN_HEIGHT, GRAVITY_MOD, JUMP_SPEED, HITBOX_RATIO, \
+from .config import SCREEN_HEIGHT, GRAVITY_MOD, JUMP_SPEED, HITBOX_RATIO, \
         WALK_SPEED, WALK_ANIM_SPEED, WALK_ACCELERATION, WALK_SLOWDOWN, \
         WALK_STOP_THRESHOLD, WALK_SLOWDOWN_INITIAL
+
+
+def get_path(path):
+    return os.path.join(os.path.dirname(__file__), path)
 
 
 class Player(pg.sprite.Sprite):
@@ -10,15 +15,15 @@ class Player(pg.sprite.Sprite):
         # Pig sprites: left and right
         self.image_right = [
             pg.image.load(
-                'assets/sprites/jumpy/right.png').convert_alpha(),
+                get_path('assets/sprites/jumpy/right.png')).convert_alpha(),
             pg.image.load(
-                'assets/sprites/jumpy/right2.png').convert_alpha(),
+                get_path('assets/sprites/jumpy/right2.png')).convert_alpha(),
         ]
         self.image_left = [
             pg.image.load(
-                'assets/sprites/jumpy/left.png').convert_alpha(),
+                get_path('assets/sprites/jumpy/left.png')).convert_alpha(),
             pg.image.load(
-                'assets/sprites/jumpy/left2.png').convert_alpha(),
+                get_path('assets/sprites/jumpy/left2.png')).convert_alpha(),
         ]
 
         self.image = self.image_right[0]
@@ -37,7 +42,8 @@ class Player(pg.sprite.Sprite):
         self.hitbox.midbottom = self.rect.midbottom
 
         # Sounds
-        self.jump_sound = pg.mixer.Sound('assets/sounds/pig-jump.wav')
+        self.jump_sound = pg.mixer.Sound(
+            get_path('assets/sounds/pig-jump.wav'))
         self.jump_sound.set_volume(0.3)
 
         # Set speed vectors

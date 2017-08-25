@@ -11,11 +11,16 @@ Say hello to Jumpy Pig:
     |   ,             (")
     |__,'`-..--|__|--''
 '''
+import os
 import pygame as pg
 
-from world import Level
-from player import Player
-from config import SCREEN_WIDTH, SCREEN_HEIGHT, FRAME_RATE, LIGHT0
+from .world import Level
+from .player import Player
+from .config import SCREEN_WIDTH, SCREEN_HEIGHT, FRAME_RATE, LIGHT0
+
+
+def get_path(path):
+    return os.path.join(os.path.dirname(__file__), path)
 
 
 def main():
@@ -28,8 +33,8 @@ def main():
     font = pg.font.Font(None, 25)
 
     size = (SCREEN_WIDTH, SCREEN_HEIGHT)
-    screen = pg.display.set_mode(size)
-    # screen = pg.display.set_mode(size, pg.FULLSCREEN)
+    # screen = pg.display.set_mode(size)
+    screen = pg.display.set_mode(size, pg.FULLSCREEN)
     pg.display.set_caption("Jumpy Pig! (A Game For Lila)")
 
     pg.joystick.init()
@@ -44,16 +49,16 @@ def main():
 
     # Set up the levels
     level_list = [
-        'levels/tmx-files/lvl_1.tmx',
-        'levels/tmx-files/lvl_2.tmx',
-        'levels/tmx-files/lvl_3.tmx',
-        'levels/tmx-files/lvl_4.tmx',
-        'levels/tmx-files/lvl_5.tmx',
-        'levels/tmx-files/lvl_6.tmx',
-        'levels/tmx-files/lvl_7.tmx',
-        'levels/tmx-files/lvl_8.tmx',
-        'levels/tmx-files/lvl_9.tmx',
-        'levels/tmx-files/lvl_10.tmx'
+        get_path('levels/tmx-files/lvl_1.tmx'),
+        get_path('levels/tmx-files/lvl_2.tmx'),
+        get_path('levels/tmx-files/lvl_3.tmx'),
+        get_path('levels/tmx-files/lvl_4.tmx'),
+        get_path('levels/tmx-files/lvl_5.tmx'),
+        get_path('levels/tmx-files/lvl_6.tmx'),
+        get_path('levels/tmx-files/lvl_7.tmx'),
+        get_path('levels/tmx-files/lvl_8.tmx'),
+        get_path('levels/tmx-files/lvl_9.tmx'),
+        get_path('levels/tmx-files/lvl_10.tmx')
     ]
     current_level_no = 0
     current_level = Level(player, level_list[current_level_no])
@@ -66,11 +71,12 @@ def main():
     player.level = current_level
 
     # Start the background music
-    pg.mixer.music.load('assets/sounds/bg_music1.mp3')
+    pg.mixer.music.load(get_path('assets/sounds/bg_music1.mp3'))
     pg.mixer.music.play(loops=-1)
     pg.mixer.music.set_volume(0.4)
 
-    level_complete_sound = pg.mixer.Sound('assets/sounds/victory-pig.wav')
+    level_complete_sound = pg.mixer.Sound(
+        get_path('assets/sounds/victory-pig.wav'))
     level_complete_sound.set_volume(0.3)
 
     running = True
@@ -157,7 +163,7 @@ def main():
             current_level_no += 1
             if current_level_no == len(level_list):
                 pg.mixer.music.stop()
-                pg.mixer.music.load('assets/sounds/victory.mp3')
+                pg.mixer.music.load(get_path('assets/sounds/victory.mp3'))
                 pg.mixer.music.play(loops=-1)
                 pg.mixer.music.set_volume(0.4)
 
@@ -196,7 +202,7 @@ def main():
             player.level = current_level
             player.reset()
             pg.mixer.music.stop()
-            pg.mixer.music.load('assets/sounds/bg_music1.mp3')
+            pg.mixer.music.load(get_path('assets/sounds/bg_music1.mp3'))
             pg.mixer.music.play(loops=-1)
             pg.mixer.music.set_volume(0.4)
 

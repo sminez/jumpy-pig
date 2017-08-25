@@ -1,12 +1,17 @@
+import os
 import pytmx
 import pygame as pg
+
+
+def get_path(path):
+    return os.path.join(os.path.dirname(__file__), path)
 
 
 class Donkey(pg.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
         self.image = pg.image.load(
-            'assets/sprites/donkey.png').convert_alpha()
+            get_path('assets/sprites/donkey.png')).convert_alpha()
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
@@ -54,7 +59,8 @@ class Level:
         # self.mob_list = pg.sprite.Group()
 
         # Same background image for each level at the moment
-        self.background = pg.image.load('levels/bg_512x384.png')
+        self.background = pg.image.load(
+            get_path('levels/bg_512x384.png'))
 
         # Build all of the platforms
         for plat in plat_layer.tiles():
