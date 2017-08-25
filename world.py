@@ -61,7 +61,6 @@ class Level:
             block = Platform(plat[2])
             block.rect.x = plat[0] * self.w
             block.rect.y = plat[1] * self.h
-            # block.player = self.player
             self.platform_list.add(block)
 
         # Collect the mobs, objects and collectables
@@ -69,22 +68,23 @@ class Level:
         self.objects = [o for o in obj_layer.tiles()]
         self.collectables = [o for o in col_layer.tiles()]
 
-    def update(self):
-        self.platform_list.update()
-        self.donkey_list.update()
-
-    def draw(self, screen):
-        # Draw the background
-        screen.blit(self.background, (0, 0))
-
-        # Draw all the sprite lists that we have
-        self.platform_list.draw(screen)
-        self.donkey_list.draw(screen)
+        # Draw all the staic sprite lists that we have to the background
+        self.platform_list.draw(self.background)
+        self.donkey_list.draw(self.background)
 
         # Blit objects (decoration only)
         for t in self.objects:
-            screen.blit(t[2], (t[0]*self.w, t[1]*self.h))
+            self.background.blit(t[2], (t[0]*self.w, t[1]*self.h))
 
         # Blit collectables
         for t in self.collectables:
-            screen.blit(t[2], (t[0]*self.w, t[1]*self.h))
+            self.background.blit(t[2], (t[0]*self.w, t[1]*self.h))
+
+    def update(self):
+        # NOTE: Once things move, this will need to be modified
+        #       to update sprite positions etc
+        pass
+
+    def draw(self, screen):
+        '''Draw the current level'''
+        screen.blit(self.background, (0, 0))

@@ -1,5 +1,4 @@
 import pygame as pg
-# from config import BRIGHT_AQUA
 from config import SCREEN_HEIGHT, GRAVITY_MOD, JUMP_SPEED, HITBOX_RATIO, \
         WALK_SPEED, WALK_ANIM_SPEED, WALK_ACCELERATION, WALK_SLOWDOWN, \
         WALK_STOP_THRESHOLD, WALK_SLOWDOWN_INITIAL
@@ -45,6 +44,7 @@ class Player(pg.sprite.Sprite):
         self.change_x = 0
         self.change_y = 0
         self.stopping = False
+        self.jumping = False
 
         # Current level to interact with
         self.level = None
@@ -65,7 +65,7 @@ class Player(pg.sprite.Sprite):
             self.change_x -= WALK_ACCELERATION
             if self.change_x < -WALK_SPEED:
                 self.change_x = -WALK_SPEED
-        elif 0 < self.change_x < WALK_SPEED:
+        elif WALK_SPEED > self.change_x > 0:
             self.change_x += WALK_ACCELERATION
             if self.change_x > WALK_SPEED:
                 self.change_x = WALK_SPEED
@@ -126,6 +126,7 @@ class Player(pg.sprite.Sprite):
         '''
         We need to check that there is a platform below for us to jump from.
         '''
+        self.jumping = True
         self.hitbox.rect.y += 2
         platform_hit_list = pg.sprite.spritecollide(
             self.hitbox, self.level.platform_list, False)
@@ -137,6 +138,10 @@ class Player(pg.sprite.Sprite):
                 self.hitbox.rect.bottom >= SCREEN_HEIGHT:
             self.change_y = -1 * JUMP_SPEED
             self.jump_sound.play()
+
+    def end_jump(self):
+        '''Cut off the jump'''
+        self.jumping = False
 
     def move_left(self):
         '''Move left and set the pig to face left'''
@@ -157,5 +162,13 @@ class Player(pg.sprite.Sprite):
         self.change_x = WALK_ACCELERATION
 
     def stop(self):
+        '''Start slowing down the player'''
         self.change_x *= WALK_SLOWDOWN_INITIAL
         self.stopping = True
+
+    def reset(self):
+        '''Called on reset and level load to initilise position'''
+        self.image = self.image_right[0]
+        if self.change_x < 0:
+            self.change_x = 0
+        self.change_y = 0
