@@ -51,8 +51,8 @@ def main():
         'levels/tmx-files/lvl_5.tmx',
         'levels/tmx-files/lvl_6.tmx',
         'levels/tmx-files/lvl_7.tmx',
-        'levels/tmx-files/lvl_8.tmx'
-        'levels/tmx-files/lvl_9.tmx'
+        'levels/tmx-files/lvl_8.tmx',
+        'levels/tmx-files/lvl_9.tmx',
         'levels/tmx-files/lvl_10.tmx'
     ]
     current_level_no = 0
@@ -70,6 +70,9 @@ def main():
     pg.mixer.music.play(loops=-1)
     pg.mixer.music.set_volume(0.4)
 
+    level_complete_sound = pg.mixer.Sound('assets/sounds/victory-pig.wav')
+    level_complete_sound.set_volume(0.3)
+
     running = True
     reset = False   # Used to reset to the first level
     frame_no = 0
@@ -85,7 +88,7 @@ def main():
                 HORIZONTAL = pad.get_axis(0)
                 # VERTICAL = pad.get_axis(1)
                 # X = pad.get_button(0)
-                # A = pad.get_button(1)
+                A = pad.get_button(1)
                 B = pad.get_button(2)
                 # Y = pad.get_button(3)
                 L_SHOULDER = pad.get_button(4)
@@ -99,9 +102,9 @@ def main():
                     player.move_right()
                 if HORIZONTAL == 0:
                     player.stop()
-                if B == 1:
+                if B == 1 or A == 1:
                     player.jump()
-                if B == 0:
+                if B == 0 and A == 0:
                     player.end_jump()
                 if SELECT == 1 and L_SHOULDER == 1 and R_SHOULDER == 1:
                     running = False
@@ -147,7 +150,7 @@ def main():
         current_level.draw(screen)
         active_sprite_list.draw(screen)
         time = font.render(seconds, True, LIGHT0)
-        screen.blit(time, (SCREEN_WIDTH-95, 10))
+        screen.blit(time, (SCREEN_WIDTH-110, 15))
 
         # Trigger end of level and load the next level
         if pg.sprite.collide_rect(player, current_level.donkey):
@@ -179,6 +182,7 @@ def main():
                 if reset:
                     running = True
             else:
+                # level_complete_sound.play()
                 current_level = Level(player, level_list[current_level_no])
                 player.level = current_level
                 player.reset()
