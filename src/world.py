@@ -76,7 +76,6 @@ class Level:
 
         # Draw all the staic sprite lists that we have to the background
         self.platform_list.draw(self.background)
-        self.donkey_list.draw(self.background)
 
         # Blit objects (decoration only)
         for t in self.objects:
@@ -85,6 +84,8 @@ class Level:
         # Blit collectables
         for t in self.collectables:
             self.background.blit(t[2], (t[0]*self.w, t[1]*self.h))
+
+        self.donkey_list.draw(self.background)
 
     def update(self):
         # NOTE: Once things move, this will need to be modified
