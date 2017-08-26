@@ -58,8 +58,9 @@ def main():
         # get_path('levels/tmx-files/lvl_7.tmx'),
         # get_path('levels/tmx-files/lvl_8.tmx'),
         # get_path('levels/tmx-files/lvl_9.tmx'),
-        # get_path('levels/tmx-files/lvl_10.tmx')
-        get_path('levels/tmx-files/snowy.tmx')
+        # get_path('levels/tmx-files/lvl_10.tmx'),
+        get_path('levels/tmx-files/lvl_11.tmx')
+        # get_path('levels/tmx-files/snowy.tmx')
     ]
     current_level_no = 0
     current_level = Level(player, level_list[current_level_no])
