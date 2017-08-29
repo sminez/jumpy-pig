@@ -49,16 +49,16 @@ def main():
 
     # Set up the levels
     level_list = [
-        # get_path('levels/tmx-files/lvl_1.tmx'),
-        # get_path('levels/tmx-files/lvl_2.tmx'),
-        # get_path('levels/tmx-files/lvl_3.tmx'),
-        # get_path('levels/tmx-files/lvl_4.tmx'),
-        # get_path('levels/tmx-files/lvl_5.tmx'),
-        # get_path('levels/tmx-files/lvl_6.tmx'),
-        # get_path('levels/tmx-files/lvl_7.tmx'),
-        # get_path('levels/tmx-files/lvl_8.tmx'),
-        # get_path('levels/tmx-files/lvl_9.tmx'),
-        # get_path('levels/tmx-files/lvl_10.tmx'),
+        get_path('levels/tmx-files/lvl_1.tmx'),
+        get_path('levels/tmx-files/lvl_2.tmx'),
+        get_path('levels/tmx-files/lvl_3.tmx'),
+        get_path('levels/tmx-files/lvl_4.tmx'),
+        get_path('levels/tmx-files/lvl_5.tmx'),
+        get_path('levels/tmx-files/lvl_6.tmx'),
+        get_path('levels/tmx-files/lvl_7.tmx'),
+        get_path('levels/tmx-files/lvl_8.tmx'),
+        get_path('levels/tmx-files/lvl_9.tmx'),
+        get_path('levels/tmx-files/lvl_10.tmx'),
         get_path('levels/tmx-files/lvl_11.tmx')
         # get_path('levels/tmx-files/snowy.tmx')
     ]
