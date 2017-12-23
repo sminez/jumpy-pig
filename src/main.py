@@ -23,7 +23,7 @@ def get_path(path):
     return os.path.join(os.path.dirname(__file__), path)
 
 
-def main(level_file='levels.txt'):
+def main(level_file='levels.txt', fullsize=True):
     # NOTE: Need to init the audio mixer _before_ the main pygame.init()
     # pg.mixer.pre_init(44100, -16, 2, 2048)
     pg.mixer.pre_init(48000, -16, 2, 2048)
@@ -34,8 +34,11 @@ def main(level_file='levels.txt'):
     font = pg.font.Font(None, 25)
 
     size = (SCREEN_WIDTH, SCREEN_HEIGHT)
-    # screen = pg.display.set_mode(size)
-    screen = pg.display.set_mode(size, pg.FULLSCREEN)
+    if fullsize:
+        screen = pg.display.set_mode(size, pg.FULLSCREEN)
+    else:
+        screen = pg.display.set_mode(size)
+
     pg.display.set_caption("Jumpy Pig! (A Game For Lila)")
 
     pg.joystick.init()
@@ -194,7 +197,7 @@ def main(level_file='levels.txt'):
             player.level = current_level
             player.reset()
             pg.mixer.music.stop()
-            pg.mixer.music.load(get_path('assets/sounds/bg_music1.mp3'))
+            pg.mixer.music.load(get_path('assets/sounds/bruce-comin-to-town.mp3'))
             pg.mixer.music.play(loops=-1)
             pg.mixer.music.set_volume(0.4)
 
