@@ -5,6 +5,10 @@ from .config import SCREEN_HEIGHT, GRAVITY_MOD, JUMP_SPEED, HITBOX_RATIO, \
         WALK_STOP_THRESHOLD, WALK_SLOWDOWN_INITIAL
 
 
+# XMAS = ''
+XMAS = 'xmas-'
+
+
 def get_path(path):
     return os.path.join(os.path.dirname(__file__), path)
 
@@ -15,15 +19,19 @@ class Player(pg.sprite.Sprite):
         # Pig sprites: left and right
         self.image_right = [
             pg.image.load(
-                get_path('assets/sprites/jumpy/right.png')).convert_alpha(),
+                get_path('assets/sprites/jumpy/{}right.png'.format(XMAS))
+            ).convert_alpha(),
             pg.image.load(
-                get_path('assets/sprites/jumpy/right2.png')).convert_alpha(),
+                get_path('assets/sprites/jumpy/{}right2.png'.format(XMAS))
+            ).convert_alpha(),
         ]
         self.image_left = [
             pg.image.load(
-                get_path('assets/sprites/jumpy/left.png')).convert_alpha(),
+                get_path('assets/sprites/jumpy/{}left.png'.format(XMAS))
+            ).convert_alpha(),
             pg.image.load(
-                get_path('assets/sprites/jumpy/left2.png')).convert_alpha(),
+                get_path('assets/sprites/jumpy/{}left2.png'.format(XMAS))
+            ).convert_alpha(),
         ]
 
         self.image = self.image_right[0]

@@ -23,9 +23,10 @@ def get_path(path):
     return os.path.join(os.path.dirname(__file__), path)
 
 
-def main():
+def main(level_file='levels.txt'):
     # NOTE: Need to init the audio mixer _before_ the main pygame.init()
-    pg.mixer.pre_init(44100, -16, 2, 2048)
+    # pg.mixer.pre_init(44100, -16, 2, 2048)
+    pg.mixer.pre_init(48000, -16, 2, 2048)
     pg.mixer.init()
     pg.init()
 
@@ -48,20 +49,9 @@ def main():
     player = Player()
 
     # Set up the levels
-    level_list = [
-        get_path('levels/tmx-files/lvl_1.tmx'),
-        get_path('levels/tmx-files/lvl_2.tmx'),
-        get_path('levels/tmx-files/lvl_3.tmx'),
-        get_path('levels/tmx-files/lvl_4.tmx'),
-        get_path('levels/tmx-files/lvl_5.tmx'),
-        get_path('levels/tmx-files/lvl_6.tmx'),
-        get_path('levels/tmx-files/lvl_7.tmx'),
-        get_path('levels/tmx-files/lvl_8.tmx'),
-        get_path('levels/tmx-files/lvl_9.tmx'),
-        get_path('levels/tmx-files/lvl_10.tmx'),
-        get_path('levels/tmx-files/lvl_11.tmx')
-        # get_path('levels/tmx-files/snowy.tmx')
-    ]
+    with open(get_path(level_file), 'r') as f:
+        level_list = [get_path(line.strip()) for line in f]
+
     current_level_no = 0
     current_level = Level(player, level_list[current_level_no])
 
@@ -73,7 +63,7 @@ def main():
     player.level = current_level
 
     # Start the background music
-    pg.mixer.music.load(get_path('assets/sounds/bg_music1.mp3'))
+    pg.mixer.music.load(get_path('assets/sounds/bruce-comin-to-town.mp3'))
     pg.mixer.music.play(loops=-1)
     pg.mixer.music.set_volume(0.4)
 

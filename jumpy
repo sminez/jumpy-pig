@@ -1,5 +1,13 @@
 #! /usr/bin/python3
+import sys
+
 from src.main import main
 
 
-main()
+# Dev hack to provide custom level list
+if len(sys.argv) == 2:
+    level_file = sys.argv[1]
+else:
+    level_file = 'levels.txt'
+
+main(level_file)

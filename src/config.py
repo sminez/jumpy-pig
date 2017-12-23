@@ -8,7 +8,7 @@ http://themushroomkingdom.net/media/smw/wav
 # 980x630
 # 640x480
 SCREEN_WIDTH = 512
-SCREEN_HEIGHT = 384
+SCREEN_HEIGHT = 385
 FRAME_RATE = 60
 
 

@@ -40,6 +40,7 @@ class Level:
         plat_layer = lvl.get_layer_by_name('platforms')
         obj_layer = lvl.get_layer_by_name('objects')
         col_layer = lvl.get_layer_by_name('collectables')
+        # bg_layer = lvl.get_layer_by_name('bg')
 
         # Get start and finish positions
         p_pos = next(pig_layer.tiles())
@@ -60,7 +61,8 @@ class Level:
 
         # Same background image for each level at the moment
         self.background = pg.image.load(
-            get_path('levels/bg_512x384.png'))
+            get_path('levels/tmx-files/xmas/bg_512x384.png'))
+            # get_path('levels/bg_512x384.png'))
 
         # Build all of the platforms
         for plat in plat_layer.tiles():
