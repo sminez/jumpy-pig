@@ -27,7 +27,7 @@ class Platform(pg.sprite.Sprite):
 class Level:
     level = []
 
-    def __init__(self, player, map_path):
+    def __init__(self, player, map_path, is_xmas=False):
         '''Construct a new level from a .tmx file'''
         # Load and parse the level file
         lvl = pytmx.load_pygame(map_path)
@@ -59,10 +59,12 @@ class Level:
         self.donkey_list = pg.sprite.Group(self.donkey)
         # self.mob_list = pg.sprite.Group()
 
-        # Same background image for each level at the moment
-        self.background = pg.image.load(
-            get_path('levels/tmx-files/xmas/bg_512x384.png'))
-            # get_path('levels/bg_512x384.png'))
+        if is_xmas:
+            path = 'levels/tmx-files/xmas/bg_512x384.png'
+        else:
+            path = 'levels/bg_512x384.png'
+
+        self.background = pg.image.load(get_path(path))
 
         # Build all of the platforms
         for plat in plat_layer.tiles():

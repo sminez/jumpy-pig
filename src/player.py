@@ -5,17 +5,16 @@ from .config import SCREEN_HEIGHT, GRAVITY_MOD, JUMP_SPEED, HITBOX_RATIO, \
         WALK_STOP_THRESHOLD, WALK_SLOWDOWN_INITIAL
 
 
-# XMAS = ''
-XMAS = 'xmas-'
-
-
 def get_path(path):
     return os.path.join(os.path.dirname(__file__), path)
 
 
 class Player(pg.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, is_xmas=False):
         super().__init__()
+
+        XMAS = 'xmas-' if is_xmas else ''
+
         # Pig sprites: left and right
         self.image_right = [
             pg.image.load(

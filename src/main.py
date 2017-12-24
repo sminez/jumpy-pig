@@ -54,14 +54,14 @@ def main(level_file='levels.txt', xmas=False, fullsize=True):
     else:
         USE_GAMEPAD = False
 
-    player = Player()
+    player = Player(xmas)
 
     # Set up the levels
     with open(get_path(level_file), 'r') as f:
         level_list = [get_path(line.strip()) for line in f]
 
     current_level_no = 0
-    current_level = Level(player, level_list[current_level_no])
+    current_level = Level(player, level_list[current_level_no], xmas)
 
     # Collect all of the sprites
     active_sprite_list = pg.sprite.Group()
