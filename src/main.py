@@ -23,10 +23,15 @@ def get_path(path):
     return os.path.join(os.path.dirname(__file__), path)
 
 
-def main(level_file='levels.txt', fullsize=True):
+def main(level_file='levels.txt', xmas=False, fullsize=True):
     # NOTE: Need to init the audio mixer _before_ the main pygame.init()
-    # pg.mixer.pre_init(44100, -16, 2, 2048)
-    pg.mixer.pre_init(48000, -16, 2, 2048)
+    if xmas:
+        pg.mixer.pre_init(48000, -16, 2, 2048)
+        music_path = get_path('assets/sounds/bruce-comin-to-town.mp3')
+    else:
+        pg.mixer.pre_init(44100, -16, 2, 2048)
+        music_path = get_path('assets/sounds/bg_music1.mp3')
+
     pg.mixer.init()
     pg.init()
 
@@ -66,7 +71,7 @@ def main(level_file='levels.txt', fullsize=True):
     player.level = current_level
 
     # Start the background music
-    pg.mixer.music.load(get_path('assets/sounds/bruce-comin-to-town.mp3'))
+    pg.mixer.music.load(music_path)
     pg.mixer.music.play(loops=-1)
     pg.mixer.music.set_volume(0.4)
 
@@ -197,7 +202,7 @@ def main(level_file='levels.txt', fullsize=True):
             player.level = current_level
             player.reset()
             pg.mixer.music.stop()
-            pg.mixer.music.load(get_path('assets/sounds/bruce-comin-to-town.mp3'))
+            pg.mixer.music.load(music_path)
             pg.mixer.music.play(loops=-1)
             pg.mixer.music.set_volume(0.4)
 

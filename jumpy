@@ -1,13 +1,24 @@
 #! /usr/bin/python3
-import sys
+import argparse
 
 from src.main import main
 
 
 # Dev hack to provide custom level list
-if len(sys.argv) == 2:
-    level_file = sys.argv[1]
-else:
-    level_file = 'levels.txt'
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    '-l',
+    '--levels',
+    default='levels.txt',
+    required=False
+)
+parser.add_argument(
+    '--xmas',
+    action='store_true',
+    required=False
+)
 
-main(level_file)
+args = parser.parse_args()
+
+
+main(args.levels, args.xmas)

@@ -1,5 +1,2 @@
-#! /usr/bin/python3
-from src.main import main
-
-
-main('xmas.txt')
+#! /bin/bash
+./jumpy --levels "xmas.txt" --xmas
