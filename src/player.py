@@ -10,26 +10,29 @@ def get_path(path):
 
 
 class Player(pg.sprite.Sprite):
-    def __init__(self, is_xmas=False):
+    def __init__(self, player_ix=0, is_xmas=False):
         super().__init__()
 
         XMAS = 'xmas-' if is_xmas else ''
+        self.player_ix = player_ix
+
+        suffix = '-2' if player_ix == 1 else ''
 
         # Pig sprites: left and right
         self.image_right = [
             pg.image.load(
-                get_path('assets/sprites/jumpy/{}right.png'.format(XMAS))
+                get_path('assets/sprites/jumpy/{}right{}.png'.format(XMAS, suffix))
             ).convert_alpha(),
             pg.image.load(
-                get_path('assets/sprites/jumpy/{}right2.png'.format(XMAS))
+                get_path('assets/sprites/jumpy/{}right2{}.png'.format(XMAS, suffix))
             ).convert_alpha(),
         ]
         self.image_left = [
             pg.image.load(
-                get_path('assets/sprites/jumpy/{}left.png'.format(XMAS))
+                get_path('assets/sprites/jumpy/{}left{}.png'.format(XMAS, suffix))
             ).convert_alpha(),
             pg.image.load(
-                get_path('assets/sprites/jumpy/{}left2.png'.format(XMAS))
+                get_path('assets/sprites/jumpy/{}left2{}.png'.format(XMAS, suffix))
             ).convert_alpha(),
         ]
 

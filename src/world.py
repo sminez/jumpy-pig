@@ -27,7 +27,7 @@ class Platform(pg.sprite.Sprite):
 class Level:
     level = []
 
-    def __init__(self, player, map_path, is_xmas=False):
+    def __init__(self, players, map_path, is_xmas=False):
         '''Construct a new level from a .tmx file'''
         # Load and parse the level file
         lvl = pytmx.load_pygame(map_path)
@@ -46,9 +46,10 @@ class Level:
         p_pos = next(pig_layer.tiles())
         d_pos = next(donkey_layer.tiles())
 
-        self.player = player
-        player.rect.x = p_pos[0] * self.w
-        player.rect.y = p_pos[1] * self.h
+        self.players = players
+        for player in players:
+            player.rect.x = p_pos[0] * self.w
+            player.rect.y = p_pos[1] * self.h
 
         self.donkey = Donkey(
             # The offset for the donkey sprite is wrong for some reason...!
