@@ -18,7 +18,31 @@ parser.add_argument(
     required=False
 )
 
+parser.add_argument(
+    '--windowed',
+    action='store_true',
+    required=False
+)
+
+parser.add_argument(
+    '--player1',
+    default='',
+    required=False
+)
+
+parser.add_argument(
+    '--player2',
+    default='green',
+    required=False
+)
+
 args = parser.parse_args()
+colours = [args.player1, args.player2]
 
 
-main(args.levels, args.xmas)
+main(
+    level_file=args.levels,
+    xmas=args.xmas,
+    colours=colours,
+    fullsize=not args.windowed
+)

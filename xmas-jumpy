@@ -1,2 +1,2 @@
 #! /bin/bash
-./jumpy --levels "xmas.txt" --xmas
+./jumpy --levels "xmas.txt" --xmas --windowed

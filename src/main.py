@@ -23,7 +23,8 @@ def get_path(path):
     return os.path.join(os.path.dirname(__file__), path)
 
 
-def main(level_file='levels.txt', xmas=False, fullsize=True):
+def main(level_file='levels.txt', xmas=False, colours=['purple', 'green'],
+         fullsize=True):
     # NOTE: Need to init the audio mixer _before_ the main pygame.init()
     if xmas:
         pg.mixer.pre_init(48000, -16, 2, 2048)
@@ -64,7 +65,7 @@ def main(level_file='levels.txt', xmas=False, fullsize=True):
         count = 1
         USE_GAMEPAD = False
 
-    players = [Player(player_ix=ix, is_xmas=xmas) for ix in range(count)]
+    players = [Player(colour=c, is_xmas=xmas) for c in colours[:count]]
 
     # Set up the levels
     with open(get_path(level_file), 'r') as f:
@@ -207,7 +208,8 @@ def main(level_file='levels.txt', xmas=False, fullsize=True):
                     running = True
             else:
                 # level_complete_sound.play()
-                current_level = Level(players, level_list[current_level_no])
+                current_level = Level(
+                    players, level_list[current_level_no], is_xmas=xmas)
                 for player in players:
                     player.level = current_level
                     player.reset()
